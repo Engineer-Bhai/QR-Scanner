@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>QR-Scanner</title>
+    <script
+      src="https://unpkg.com/html5-qrcode"
+      type="text/javascript"
+    ></script>
+    <style>
+      body {
+        color: white;
+
+        background-color: darkgreen;
+      }
+
+      a {
+        color: white;
+        text-decoration: none;
+      }
+
+      .d-none {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="scanner" width="600px" height="600px"></div>
+    <div id="result_container" class="d-none"></div>
+    <script>
+      const resultContainer = document.getElementById("result_container");
+      let onSuccess = function (text, result) {
+        resultContainer.innerHTML = '<a href= ${text} > click on me to redirect to the link </a>';
+        resultContainer.classList.remove("d-none");
+        html5QrcodeScanner.clear();
+      };
+
+      let onError = function (error) {
+        console.log(error);
+      };
+
+      let html5QrcodeScanner = new Html5QrcodeScanner(
+        "scanner",
+        { fps: 10, qrbox: { width: 500, height: 500 } },
+        true
+      );
+      html5QrcodeScanner.render(onSuccess, onError);
+    </script>
+  </body>
+</html>
